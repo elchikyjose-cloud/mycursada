@@ -74,12 +74,12 @@ export default function App() {
   const [expandida, setExpandida] = useState(null);
 
   useEffect(() => {
-    const guardado = localStorage.getItem('udemm_full_stable_v8');
+    const guardado = localStorage.getItem('udemm_final_v9');
     if (guardado) setMaterias(JSON.parse(guardado));
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('udemm_full_stable_v8', JSON.stringify(materias));
+    localStorage.setItem('udemm_final_v9', JSON.stringify(materias));
   }, [materias]);
 
   const actualizarMateria = (id, campo, valor) => {
@@ -105,68 +105,26 @@ export default function App() {
     }));
   };
 
+  // CALCULOS
+  const calcularPromedioGral = () => {
+    const notas = materias.filter(m => m.final !== "" && parseFloat(m.final) >= 1).map(m => parseFloat(m.final));
+    return notas.length ? (notas.reduce((a, b) => a + b, 0) / notas.length).toFixed(2) : "0.00";
+  };
+
+  const calcularPromedioAño = () => {
+    const notas = materias.filter(m => m.año === añoActivo && m.final !== "" && parseFloat(m.final) >= 1).map(m => parseFloat(m.final));
+    return notas.length ? (notas.reduce((a, b) => a + b, 0) / notas.length).toFixed(2) : "0.00";
+  };
+
+  const calcularAvance = () => {
+    const aprobadas = materias.filter(m => !m.esExtra && m.final !== "" && parseFloat(m.final) >= 4).length;
+    return Math.round((aprobadas / 60) * 100);
+  };
+
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', backgroundColor: '#f1f5f9', minHeight: '100vh', paddingBottom: '120px' }}>
-      <header className="no-print" style={{ backgroundColor: '#002855', color: 'white', padding: '15px', position: 'sticky', top: 0, zIndex: 100, textAlign: 'center' }}>
-        <h1 style={{ margin: 0, fontSize: '1.1rem' }}>UDEMM - Mi Cursada</h1>
-      </header>
-
-      <main style={{ maxWidth: '500px', margin: 'auto', padding: '15px' }}>
-        <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
-          <h2 style={{ fontSize: '1.2rem', color: '#1e293b' }}>Año {añoActivo}º</h2>
-          <button onClick={() => window.print()} style={{ border: 'none', backgroundColor: '#334e68', color: 'white', padding: '6px 12px', borderRadius: '15px', cursor: 'pointer' }}>PDF</button>
-        </div>
-
-        {materias.filter(m => m.año === añoActivo).map(m => (
-          <div key={m.id} style={{ backgroundColor: 'white', borderLeft: `6px solid ${m.esExtra ? '#8b5cf6' : '#3b82f6'}`, borderRadius: '10px', marginBottom: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-            <div onClick={() => setExpandida(expandida === m.id ? null : m.id)} style={{ padding: '12px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between' }}>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: '600', color: '#1e293b', fontSize: '0.9rem' }}>{m.esExtra ? `⭐ ${m.nombre}` : m.nombre}</div>
-                <div style={{ fontSize: '0.7rem', color: '#64748b' }}>{m.prof || "Profesor..."}</div>
-              </div>
-              <div style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>{m.final || "-"}</div>
-            </div>
-
-            {expandida === m.id && (
-              <div className="no-print" style={{ padding: '12px', borderTop: '1px solid #f1f5f9' }}>
-                <input placeholder="Nombre" value={m.nombre} onChange={(e) => actualizarMateria(m.id, 'nombre', e.target.value)} style={inS} />
-                <input placeholder="Profesor" value={m.prof} onChange={(e) => actualizarMateria(m.id, 'prof', e.target.value)} style={{ ...inS, marginTop: '5px' }} />
-                
-                {m.esExtra ? (
-                  <div style={{ marginTop: '10px', backgroundColor: '#f8fafc', padding: '8px', borderRadius: '8px' }}>
-                    <div style={{ fontSize: '0.7rem', fontWeight: 'bold', marginBottom: '5px' }}>DETALLE DE NOTAS:</div>
-                    {m.subMaterias.map(f => (
-                      <div key={f.id} style={{ display: 'flex', gap: '5px', marginBottom: '5px' }}>
-                        <input placeholder="Materia" value={f.n} onChange={(e) => actualizarFila(m.id, f.id, 'n', e.target.value)} style={inS} />
-                        <input placeholder="Nota" type="number" value={f.v} onChange={(e) => actualizarFila(m.id, f.id, 'v', e.target.value)} style={{ ...inS, width: '60px' }} />
-                      </div>
-                    ))}
-                    <button onClick={() => agregarFila(m.id)} style={{ width: '100%', border: '1px dashed #cbd5e1', background: 'none', padding: '5px', fontSize: '0.7rem', cursor: 'pointer' }}>+ Agregar Fila</button>
-                  </div>
-                ) : (
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px', marginTop: '10px' }}>
-                    <input type="number" placeholder="P1" value={m.p1} onChange={(e) => actualizarMateria(m.id, 'p1', e.target.value)} style={inS} />
-                    <input type="number" placeholder="P2" value={m.p2} onChange={(e) => actualizarMateria(m.id, 'p2', e.target.value)} style={inS} />
-                    <input type="number" placeholder="Final" value={m.final} onChange={(e) => actualizarMateria(m.id, 'final', e.target.value)} style={{ ...inS, fontWeight: 'bold' }} />
-                  </div>
-                )}
-                <textarea placeholder="Bibliografía, autores, links..." value={m.notas} onChange={(e) => actualizarMateria(m.id, 'notas', e.target.value)} style={{ ...inS, height: '70px', marginTop: '8px' }} />
-              </div>
-            )}
-          </div>
-        ))}
-        <button onClick={agregarCursoExtra} className="no-print" style={{ width: '100%', padding: '12px', border: '2px dashed #94a3b8', background: 'none', borderRadius: '10px', color: '#64748b', fontWeight: 'bold', marginTop: '10px', cursor: 'pointer' }}>➕ Agregar Curso Extra</button>
-      </main>
-
-      <nav className="no-print" style={{ position: 'fixed', bottom: 0, width: '100%', backgroundColor: 'white', display: 'flex', borderTop: '1px solid #e2e8f0', zIndex: 100 }}>
-        {[1, 2, 3, 4, 5].map(n => (
-          <button key={n} onClick={() => {setAñoActivo(n); setExpandida(null);}} style={{ flex: 1, padding: '20px', border: 'none', background: 'none', color: añoActivo === n ? '#002855' : '#94a3b8', fontWeight: añoActivo === n ? 'bold' : 'normal', fontSize: '1rem' }}>{n}º</button>
-        ))}
-      </nav>
-
-      <style dangerouslySetInnerHTML={{ __html: `@media print { .no-print { display: none !important; } body { background: white; } }` }} />
-    </div>
-  );
-}
-
-const inS = { width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #e2e8f0', fontSize: '0.85rem', boxSizing: 'border-box' };
+      <header className="no-print" style={{ backgroundColor: '#002855', color: 'white', padding: '15px', position: 'sticky', top: 0, zIndex: 100 }}>
+        <h1 style={{ margin: 0, fontSize: '1.1rem', textAlign: 'center' }}>UDEMM - Psicología</h1>
+        <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '12px', fontSize: '0.85rem', fontWeight: 'bold' }}>
+          <div style={{ textAlign: 'center' }}>{calcularPromedioGral()}<br/><span style={{ fontSize: '0.6rem', opacity: 0.8 }}>PROM. GRAL</span></div>
+          <div style={{
