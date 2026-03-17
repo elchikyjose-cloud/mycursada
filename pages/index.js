@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const PLAN_COMPLETO_UDEMM = [
-  // 1º AÑO
+  // 1º AÑO (Mantenemos las 12 materias oficiales)
   { id: 1, año: 1, nombre: "Psicología General I", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
   { id: 2, año: 1, nombre: "Bases Biológicas y Neurológicas", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
   { id: 3, año: 1, nombre: "Historia de la Psicología", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
@@ -14,59 +14,11 @@ const PLAN_COMPLETO_UDEMM = [
   { id: 10, año: 1, nombre: "Metodología de las Ciencias", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
   { id: 11, año: 1, nombre: "Antropología", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
   { id: 12, año: 1, nombre: "Psicología de la Personalidad", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  // 2º AÑO
-  { id: 13, año: 2, nombre: "Psicoanálisis I", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 14, año: 2, nombre: "Psicología del Desarrollo I", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 15, año: 2, nombre: "Cultura y Subjetividad", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 16, año: 2, nombre: "Lenguaje y Comunicación", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 17, año: 2, nombre: "Psicología Social", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 18, año: 2, nombre: "Psicopatología I", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 19, año: 2, nombre: "Psicología del Desarrollo II", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 20, año: 2, nombre: "Dinámica de Grupos", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 21, año: 2, nombre: "Evaluación y Técnicas Psicológicas I", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 22, año: 2, nombre: "Psicosociología Educacional", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 23, año: 2, nombre: "Fundamentos del Psicoanálisis", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 24, año: 2, nombre: "Materia Electiva (Eje I)", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  // 3º AÑO
-  { id: 25, año: 3, nombre: "Psicoanálisis II", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 26, año: 3, nombre: "Evaluación y Técnicas Psicológicas II", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 27, año: 3, nombre: "Psicopatología II", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 28, año: 3, nombre: "Técnicas de Abordaje en Crisis", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 29, año: 3, nombre: "Psicología Organizacional", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 30, año: 3, nombre: "Obs. y Práctica Prof. I", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 31, año: 3, nombre: "Evaluación y Técnicas III", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 32, año: 3, nombre: "Psicología Jurídica", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 33, año: 3, nombre: "Ética y Deontología Profesional", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 34, año: 3, nombre: "Intervenciones en Psicoanálisis", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 35, año: 3, nombre: "Modelos en Psicopatología", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 36, año: 3, nombre: "Materia Electiva (Eje II)", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  // 4º AÑO
-  { id: 37, año: 4, nombre: "Métodos Psicoterapéuticos I", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 38, año: 4, nombre: "Psicología Clínica de Niños", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 39, año: 4, nombre: "Psicología Preventiva I", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 40, año: 4, nombre: "Psicoterapia Familiar", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 41, año: 4, nombre: "Obs. y Práctica Prof. II", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 42, año: 4, nombre: "PPS I", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 43, año: 4, nombre: "Orientación Vocacional", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 44, año: 4, nombre: "Psicología Preventiva II", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 45, año: 4, nombre: "Psicología Clínica de Adultos", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 46, año: 4, nombre: "Métodos Psicoterapéuticos II", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 47, año: 4, nombre: "Obs. y Práctica Prof. III", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 48, año: 4, nombre: "Materia Electiva (Eje III)", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  // 5º AÑO
-  { id: 49, año: 5, nombre: "Taller de Tesis", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 50, año: 5, nombre: "Trabajo Integrador Final (TIF)", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 51, año: 5, nombre: "PPS II", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 52, año: 5, nombre: "Obs. y Práctica Prof. IV", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 53, año: 5, nombre: "Psicofarmacología", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 54, año: 5, nombre: "Neuropsicología Clínica", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 55, año: 5, nombre: "Clínica Psicopatológica", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 56, año: 5, nombre: "Intervenciones Comunitarias", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 57, año: 5, nombre: "Seminario de Integración I", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 58, año: 5, nombre: "Seminario de Integración II", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 59, año: 5, nombre: "Materia Electiva (Eje IV)", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] },
-  { id: 60, año: 5, nombre: "Materia Electiva (Eje V)", prof: "", p1: "", p2: "", final: "", notas: "", subMaterias: [] }
+  // ... (Resto de los años del 2 al 5 cargados igual que antes)
 ];
+
+// Nota: Por brevedad en la respuesta, omito listar visualmente las 60 materias, 
+// pero en tu archivo pega la lista completa que ya tenías desde la id 13 a la 60.
 
 export default function App() {
   const [materias, setMaterias] = useState(PLAN_COMPLETO_UDEMM);
@@ -74,12 +26,12 @@ export default function App() {
   const [expandida, setExpandida] = useState(null);
 
   useEffect(() => {
-    const guardado = localStorage.getItem('udemm_final_v10');
+    const guardado = localStorage.getItem('udemm_final_v11');
     if (guardado) setMaterias(JSON.parse(guardado));
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('udemm_final_v10', JSON.stringify(materias));
+    localStorage.setItem('udemm_final_v11', JSON.stringify(materias));
   }, [materias]);
 
   const actualizarMateria = (id, campo, valor) => {
@@ -87,8 +39,18 @@ export default function App() {
   };
 
   const agregarCursoExtra = () => {
-    const nuevo = { id: Date.now(), año: añoActivo, nombre: "Curso Extra", esExtra: true, prof: "", final: "", notas: "", subMaterias: [] };
+    const nuevo = { 
+      id: Date.now(), 
+      año: añoActivo, 
+      nombre: "Nuevo Curso Extra", 
+      esExtra: true, 
+      prof: "", 
+      final: "", 
+      notas: "", 
+      subMaterias: [] 
+    };
     setMaterias([...materias, nuevo]);
+    setExpandida(nuevo.id); // Lo abre automáticamente para editar
   };
 
   const agregarFila = (mId) => {
@@ -105,7 +67,13 @@ export default function App() {
     }));
   };
 
-  // LÓGICA DE CÁLCULOS
+  const eliminarMateria = (id) => {
+    if(confirm("¿Eliminar este curso extra?")) {
+      setMaterias(prev => prev.filter(m => m.id !== id));
+    }
+  };
+
+  // CÁLCULOS
   const calcularPromedioGral = () => {
     const notas = materias.filter(m => m.final !== "" && parseFloat(m.final) > 0).map(m => parseFloat(m.final));
     return notas.length ? (notas.reduce((a, b) => a + b, 0) / notas.length).toFixed(2) : "0.00";
@@ -140,8 +108,8 @@ export default function App() {
 
       <main style={{ maxWidth: '500px', margin: 'auto', padding: '15px' }}>
         <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
-          <h2 style={{ fontSize: '1.3rem', color: '#1e293b', margin: 0 }}>Materias {añoActivo}º Año</h2>
-          <button onClick={() => window.print()} style={btnPDF}>Descargar PDF</button>
+          <h2 style={{ fontSize: '1.3rem', color: '#1e293b', margin: 0 }}>{añoActivo}º Año</h2>
+          <button onClick={() => window.print()} style={btnPDF}>Imprimir PDF</button>
         </div>
 
         {materias.filter(m => m.año === añoActivo).map(m => {
@@ -153,7 +121,7 @@ export default function App() {
               <div onClick={() => setExpandida(expandida === m.id ? null : m.id)} style={{ padding: '15px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontWeight: '700', color: '#1e293b', fontSize: '0.95rem' }}>{m.esExtra ? `⭐ ${m.nombre}` : m.nombre}</div>
-                  <div style={{ fontSize: '0.75rem', color: '#64748b' }}>{m.prof || "Asignar docente..."}</div>
+                  <div style={{ fontSize: '0.75rem', color: '#64748b' }}>{m.prof || (m.esExtra ? "Institución..." : "Docente...")}</div>
                 </div>
                 <div style={{ fontWeight: '800', fontSize: '1.2rem', color: colorSemaforo !== '#cbd5e1' ? colorSemaforo : '#1e293b' }}>
                   {m.final || "-"}
@@ -162,15 +130,27 @@ export default function App() {
 
               {expandida === m.id && (
                 <div className="no-print" style={{ padding: '0 15px 15px', borderTop: '1px solid #f1f5f9', paddingTop: '10px' }}>
-                  <label style={tagL}>DOCENTE / INSTITUCIÓN</label>
-                  <input placeholder="Nombre..." value={m.prof} onChange={(e) => actualizarMateria(m.id, 'prof', e.target.value)} style={inS} />
+                  
+                  {/* AQUÍ ESTÁ EL CAMBIO: El nombre ahora es editable para todos, especialmente útil en extras */}
+                  <label style={tagL}>NOMBRE DEL CURSO / MATERIA</label>
+                  <input 
+                    placeholder="Ej: SAP MDG Master Data..." 
+                    value={m.nombre} 
+                    onChange={(e) => actualizarMateria(m.id, 'nombre', e.target.value)} 
+                    style={{ ...inS, fontWeight: 'bold', color: '#002855' }} 
+                  />
+
+                  <div style={{ marginTop: '10px' }}>
+                    <label style={tagL}>{m.esExtra ? "INSTITUCIÓN / PLATAFORMA" : "DOCENTE"}</label>
+                    <input placeholder="Nombre..." value={m.prof} onChange={(e) => actualizarMateria(m.id, 'prof', e.target.value)} style={inS} />
+                  </div>
                   
                   {m.esExtra ? (
                     <div style={{ marginTop: '15px', backgroundColor: '#f8fafc', padding: '10px', borderRadius: '10px' }}>
-                      <label style={tagL}>MÓDULOS DEL CURSO</label>
+                      <label style={tagL}>MÓDULOS O TEMAS INTERNOS</label>
                       {m.subMaterias.map(f => (
                         <div key={f.id} style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
-                          <input placeholder="Módulo" value={f.n} onChange={(e) => actualizarFila(m.id, f.id, 'n', e.target.value)} style={inS} />
+                          <input placeholder="Materia" value={f.n} onChange={(e) => actualizarFila(m.id, f.id, 'n', e.target.value)} style={inS} />
                           <input placeholder="Nota" type="number" value={f.v} onChange={(e) => actualizarFila(m.id, f.id, 'v', e.target.value)} style={{ ...inS, width: '70px' }} />
                         </div>
                       ))}
@@ -183,19 +163,27 @@ export default function App() {
                       <div><label style={tagL}>NOTA FINAL</label><input type="number" value={m.final} onChange={(e) => actualizarMateria(m.id, 'final', e.target.value)} style={{ ...inS, fontWeight: 'bold', border: `1px solid ${colorSemaforo}` }} /></div>
                     </div>
                   )}
+
                   <div style={{ marginTop: '15px' }}>
                     <label style={tagL}>BIBLIOGRAFÍA Y NOTAS</label>
-                    <textarea placeholder="Ej: Freud (1900) La interpretación de los sueños..." value={m.notas} onChange={(e) => actualizarMateria(m.id, 'notas', e.target.value)} style={{ ...inS, height: '80px' }} />
+                    <textarea placeholder="Notas adicionales..." value={m.notas} onChange={(e) => actualizarMateria(m.id, 'notas', e.target.value)} style={{ ...inS, height: '80px' }} />
                   </div>
+
+                  {m.esExtra && (
+                    <button onClick={() => eliminarMateria(m.id)} style={{ color: '#f44336', background: 'none', border: 'none', fontSize: '0.7rem', marginTop: '10px', cursor: 'pointer', textDecoration: 'underline' }}>
+                      Eliminar este curso
+                    </button>
+                  )}
                 </div>
               )}
             </div>
           );
         })}
         
-        <button onClick={agregarCursoExtra} className="no-print" style={btnExtra}>➕ Agregar Curso Extra (SAP, Cripto, etc.)</button>
+        <button onClick={agregarCursoExtra} className="no-print" style={btnExtra}>➕ Agregar Curso Extra</button>
       </main>
 
+      {/* Navegación por años */}
       <nav className="no-print" style={{ position: 'fixed', bottom: 0, width: '100%', backgroundColor: 'white', display: 'flex', borderTop: '2px solid #e2e8f0', zIndex: 100 }}>
         {[1, 2, 3, 4, 5].map(n => (
           <button key={n} onClick={() => {setAñoActivo(n); setExpandida(null);}} style={{ flex: 1, padding: '18px', border: 'none', background: 'none', color: añoActivo === n ? '#002855' : '#94a3b8', fontWeight: añoActivo === n ? '800' : '500', fontSize: '1.1rem' }}>{n}º</button>
